@@ -1,0 +1,10 @@
+x, y, z = list(map(int, input().split()))
+list_a = [x, y, z]
+list_a.sort()
+print(list_a[0])
+print(list_a[1])
+print(list_a[2])
+print("")
+print(x)
+print(y)
+print(z)
