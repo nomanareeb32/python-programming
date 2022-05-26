@@ -1,5 +1,5 @@
 a, b = map(int, input().split(":"))  # "23:10"=> (23 10) = (a,b)
-if a == 0 b == 0:
+if a == 0 and b == 0:
     print(f"{12}:{b} pm")
 elif a < 12:
     # print("%d:%d %s" % (a, b, 'am'))
