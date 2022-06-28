@@ -16,10 +16,8 @@ f = []
 for i in a:
     t = coPrime(i)
     f.append(t)
-
 for i in range(q):
     l, r = map(int, input().split())
-
     max = f[l - 1]
     for i in range(l, r):
         if f[i] > max:
