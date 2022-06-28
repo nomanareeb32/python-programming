@@ -1,12 +1,27 @@
-for _ in range(int(input())):
-    b = int(input())
-    c = input()
-    count = 0
-    for i in range((b + 1) // 2):
-        temp = c[:i] + c[i + 1:]
-        if temp == temp[::-1]:
-            if b % 2 != 0 and i == ((b + 1) // 2) - 1:
-                count += 1
-            else:
-                count += 2
-    print(count)
+n, q = map(int, input().split())
+a = []
+for i in range(1, n + 1):
+    a.append(i)
+
+
+def coPrime(num):
+    count = 1
+    for i in range(2, num):
+        if num % i != 0:
+            count += 1
+    return count
+
+
+f = []
+for i in a:
+    t = coPrime(i)
+    f.append(t)
+
+for i in range(q):
+    l, r = map(int, input().split())
+
+    max = f[l - 1]
+    for i in range(l, r):
+        if f[i] > max:
+            max = f[i]
+    print(max)
