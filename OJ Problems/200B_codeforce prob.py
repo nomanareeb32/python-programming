@@ -1,0 +1,5 @@
+n = int(input())
+p = list(map(int, input().split()))
+total = sum(p)
+fraction = total / (n * 100)
+print(fraction * 100)
