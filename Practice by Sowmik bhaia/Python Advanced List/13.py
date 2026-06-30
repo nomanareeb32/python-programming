@@ -3,4 +3,5 @@ result = []
 for x in lst:
     if x not in result:
         result.append(x)
-print(result)
+    else:
+        print(x)
