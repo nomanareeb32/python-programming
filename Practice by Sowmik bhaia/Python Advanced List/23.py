@@ -3,7 +3,8 @@ b = [12, 5, 12, 33, 5, 47, 12, 9, 33, 5]
 
 """
 common = []
-a = set(a)
+a = set(a) #set() doesn't accept duplicates
+b = set(b) #set() doesn't accept duplicates
 b = set(b)
 for i in a:
     if i in b and i not in common:
@@ -12,8 +13,8 @@ print(*common, sep=', ')
 """
 
 """
-a = set(a)
-b = set(b)
+a = set(a) #set() doesn't accept duplicates
+b = set(b) #set() doesn't accept duplicates
 z = [set(a) & set(b)] #z = list(set(a) & set(b))
 print(z)
 """
