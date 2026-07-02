@@ -39,6 +39,8 @@ def generate_shape(n, shape):
                 else:
                     x.append(0)
             grid.append(x)
+    else:
+        print("Unknown shape:", shape)
     return grid
 
 n = int(input())
