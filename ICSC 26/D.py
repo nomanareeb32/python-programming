@@ -45,7 +45,6 @@ def recheck(events, H):
 
     return result
 
-
 #Taking Inputs
 events = eval(input())  # Ex: [(1, 512, 20), (2, 512, 20)]
 H = int(input())  # Starting HP
