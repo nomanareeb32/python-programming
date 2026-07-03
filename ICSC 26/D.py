@@ -34,7 +34,7 @@ def recheck(events, H):
             break
         #If neither is true, the while loop just continues to the next frame
 
-    #Clamping HP so it never shows as negative
+    #Clamping HP so it never shows negative
     if p_1_hp <= 0:
         p_1_hp = 0
     if p_2_hp <= 0:

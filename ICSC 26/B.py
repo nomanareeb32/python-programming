@@ -1,5 +1,7 @@
 def generate_shape(n, shape):
+
     grid = []  # This will hold our final N x N grid
+
     if shape == "checkerboard":
         """
         Checkerboard logic:
@@ -9,6 +11,7 @@ def generate_shape(n, shape):
         - A cell is 1 when the sum of its row index and column index is odd.
         Why? Because (0,0) -> sum = 0 (even) -> must be 0. This matches the rule.
         """
+
         for i in range(n):
             x = []
             for j in range(n):
@@ -17,6 +20,7 @@ def generate_shape(n, shape):
                 else:
                     x.append(1)
             grid.append(x)
+
     elif shape == "diamond":
         """
         Diamond logic:
@@ -29,6 +33,7 @@ def generate_shape(n, shape):
         - As we move away from the center, the distance increases by 1 for every step in row or column.
         - The diamond's "radius" is exactly c (half the grid, since N is odd), so any cell within that radius is part of the diamond shape.
         """
+
         mid = n // 2
         for i in range(n):
             x = []
@@ -39,13 +44,16 @@ def generate_shape(n, shape):
                 else:
                     x.append(0)
             grid.append(x)
-    else:
+
+    else: #If the shape is not checkerboard or diamond
         print("Unknown shape:", shape)
     return grid
 
+#Taking Inputs
 n = int(input())
 shape = input()
 
+#Run and Print
 grid = generate_shape(n, shape)
 for x in grid:
     print(*x) #Loops through the list of nested loops and prints each at a new line after unpacking
