@@ -20,17 +20,19 @@ fer = Fernet(key)
 
 
 def view():
-    with open('passwords.txt', 'r') as f:
-        for line in f.readlines():
-            data = line.rstrip()
-            user, password = data.split("|")
-            print("User:", user, "| Password:", fer.decrypt(password.encode()).decode())
+    try:
+        with open('passwords.txt', 'r') as f:
+            for line in f.readlines():
+                data = line.rstrip()
+                user, password = data.split("|")
+                print("User:", user, "| Password:", fer.decrypt(password.encode()).decode())
+    except FileNotFoundError:
+        print("No passwords found.")
 
 
 def add():
     name = input('Account Name: ')
     pwd = input("Password: ")
-
     with open('passwords.txt', 'a') as f:
         f.write(name + "|" + fer.encrypt(pwd.encode()).decode() + "\n")
 
@@ -39,6 +41,7 @@ while True:
     mode = input("Would you like to add a new password or view existing ones (view, add), press q to quit? ").lower()
 
     if mode == "q":
+        print("Goodbye!")
         break
     elif mode == "view" or mode == "add":
         master_password = input("Enter the master password: ")
