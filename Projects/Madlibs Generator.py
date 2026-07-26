@@ -1,7 +1,7 @@
 with open("story.txt", "r") as f:
     story = f.read()
 
-words = set()
+words = set() #to store the words that need to be replaced
 start_of_word = -1
 
 target_start = "<"
@@ -16,7 +16,7 @@ for i, char in enumerate(story):
         words.add(word)
         start_of_word = -1
 
-answers = {}
+answers = {} #dictionary to store the answers
 
 for word in words:
     answer = input("Enter a word for " + word + ": ")
