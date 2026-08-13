@@ -76,25 +76,64 @@ class LinkedList:
         
     def set_value(self, index, value):
         temp = self.get(index)
-        if temp: #check if temp is not None
+        if temp:
             temp.value = value
             return True
         return False
     
+    def insert(self, index, value):
+        if index < 0 or index > self.length:
+            return False
+        if index == 0:
+            return self.prepend(value)
+        if index == self.length:
+            return self.append(value)
+        new_node = Node(value)
+        temp = self.get(index - 1)
+        new_node.next = temp.next
+        temp.next = new_node
+        self.length += 1   
+        return True  
+
+    def remove(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        if index == 0:
+            return self.pop_first()
+        if index == self.length - 1:
+            return self.pop()
+        pre = self.get(index - 1)
+        temp = pre.next
+        pre.next = temp.next
+        temp.next = None
+        self.length -= 1
+        return temp
+  
 
 
 
-my_linked_list = LinkedList(11)
+my_linked_list = LinkedList(1)
+my_linked_list.append(2)
 my_linked_list.append(3)
-my_linked_list.append(23)
-my_linked_list.append(7)
+my_linked_list.append(4)
+my_linked_list.append(5)
 
-print('LL before set_value():')
+print('LL before remove():')
 my_linked_list.print_list()
 
-my_linked_list.set_value(1,4)
+print('\nRemoved node:')
+print(my_linked_list.remove(2).value)
+print('LL after remove() in middle:')
+my_linked_list.print_list()
 
-print('\nLL after set_value():')
+print('\nRemoved node:')
+print(my_linked_list.remove(0).value)
+print('LL after remove() of first node:')
+my_linked_list.print_list()
+
+print('\nRemoved node:')
+print(my_linked_list.remove(2).value)
+print('LL after remove() of last node:')
 my_linked_list.print_list()
 
 
@@ -102,15 +141,33 @@ my_linked_list.print_list()
 """
     EXPECTED OUTPUT:
     ----------------
-    LL before set_value():
-    11
+    LL before remove():
+    1
+    2
     3
-    23
-    7
-
-    LL after set_value():
-    11
     4
-    23
-    7
+    5
+
+    Removed node:
+    3
+    LL after remove() in middle:
+    1
+    2
+    4
+    5
+
+    Removed node:
+    1
+    LL after remove() of first node:
+    2
+    4
+    5
+
+    Removed node:
+    5
+    LL after remove() of last node:
+    2
+    4
+
 """
+

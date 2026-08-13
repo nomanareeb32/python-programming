@@ -78,7 +78,7 @@ print(my_linked_list.pop_first().value)
 # (1) Item -  Returns 1 Node
 print(my_linked_list.pop_first().value)
 # (0) Items - Returns None
-print(my_linked_list.pop_first())
+print(my_linked_list.pop_first().value)
 
 
 """

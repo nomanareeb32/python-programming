@@ -82,7 +82,7 @@ my_linked_list.append(1)
 my_linked_list.append(2)
 my_linked_list.append(4)
 
-print(my_linked_list.get(4).value)
+print(my_linked_list.get(3).value)
 
 
 """
