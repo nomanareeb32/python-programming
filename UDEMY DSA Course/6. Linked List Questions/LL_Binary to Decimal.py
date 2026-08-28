@@ -150,13 +150,39 @@ class LinkedList:
                 return True
         return False
 
+    def find_kth_node_from_end(self, k):
+        slow = self.head
+        fast = self.head
+        for _ in range(k):
+            if fast is None:
+                return None
+            fast = fast.next
+        while fast is not None:
+            slow = slow.next
+            fast = fast.next
+        return slow
+
+    def remove_duplicates(self):
+        if self.length == 0:
+            return "The linked list is empty. No duplicates to remove."
+        curent_node = self.head
+        runner_node = self.head
+        while curent_node is not None:
+            runner_node = curent_node
+            while runner_node.next is not None:
+                if runner_node.next.value == curent_node.value:
+                    runner_node.next = runner_node.next.next
+                    self.length -= 1
+                else:
+                    runner_node = runner_node.next
+            curent_node = curent_node.next
 
 value = input("Enter the head for the new linked list: ")
 my_linked_list = LinkedList(value)
 
 
 while True:
-    action = input("\nWhat would you like to do? (print/append/pop/pop_first/prepend/get/set/insert/remove/reverse/findmiddle/hasloop/quit): ").lower()
+    action = input("\nWhat would you like to do? (print/append/pop/pop_first/prepend/get/set/insert/remove/reverse/findmiddle/hasloop/findkthfromend/quit): ").lower()
 
     if action == "quit":
         print("Exiting program.")
@@ -259,5 +285,18 @@ while True:
             print("The linked list has a loop.")
         else:
             print("The linked list does not have a loop.")
+
+    elif action == "findkthfromend":
+        try:
+            k = int(input("Enter the value of k (1-based index from the end): "))
+            kth_node = my_linked_list.find_kth_node_from_end(k)
+            if kth_node is not None:
+                print(f"Kth Node from End: {kth_node} | Value: {kth_node.value}")
+            else:
+                print(f"No node found at position {k} from the end.")
+        except ValueError:
+            print("Please enter a valid integer for k.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
     else:
-        print("Invalid action. Please choose print, append, pop, pop_first, prepend, get, set, insert, remove, reverse, findmiddle, hasloop, or quit.")
+        print("Invalid action. Please choose print, append, pop, pop_first, prepend, get, set, insert, remove, reverse, findmiddle, hasloop, findkthfromend, or quit.")
