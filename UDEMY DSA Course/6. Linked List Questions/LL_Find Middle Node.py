@@ -141,7 +141,7 @@ class LinkedList:
         return slow_pointer
 
 
-value = input("Enter the head for the new linked list: ")
+value = int(input("Enter the head for the new linked list: "))
 my_linked_list = LinkedList(value)
 
 
