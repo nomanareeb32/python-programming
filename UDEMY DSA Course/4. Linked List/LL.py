@@ -131,7 +131,7 @@ class LinkedList:
             temporary_node = after
 
 
-value = input("Enter the head for the new linked list: ")
+value = int(input("Enter the head for the new linked list: "))
 my_linked_list = LinkedList(value)
 
 
@@ -146,12 +146,12 @@ while True:
         my_linked_list.print_list()
 
     elif action == "append":
-        new_value = input("Enter the value to append: ")
+        new_value = int(input("Enter the value to append: "))
         my_linked_list.append(new_value)
         print(f"Appended | Node: {my_linked_list.tail} | Value: {my_linked_list.tail.value}")
 
     elif action == "prepend":
-        new_value = input("Enter the value to prepend: ")
+        new_value = int(input("Enter the value to prepend: "))
         my_linked_list.prepend(new_value)
         print(f"Prepended | Node: {my_linked_list.head} | Value: {my_linked_list.head.value}")
 
@@ -183,7 +183,7 @@ while True:
     elif action == "set":
         try:
             index = int(input("Enter the index to set: "))
-            new_value = input("Enter the new value: ")
+            new_value = int(input("Enter the new value: "))
             node = my_linked_list.set(index, new_value)
             if node:
                 print(f"Set | Node: {node} | Value: {node.value}")
@@ -197,7 +197,7 @@ while True:
     elif action == "insert":
         try:
             index = int(input("Enter the index to insert at: "))
-            new_value = input("Enter the new value to insert: ")
+            new_value = int(input("Enter the new value to insert: "))
             node = my_linked_list.insert(index, new_value)
             if node:
                 print(f"Inserted | Node: {my_linked_list.get(index)} | Value: {my_linked_list.get(index).value}")
