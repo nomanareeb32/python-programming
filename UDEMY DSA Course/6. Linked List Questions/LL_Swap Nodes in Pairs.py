@@ -186,22 +186,101 @@ class LinkedList:
         return decimal_value
 
     def partition(self, x):
-        if self.length == 0:
-            return "The linked list is empty. No partitioning can be done."
+        if self.head is None:
+            return print("Cannot partition an empty linked list.")
+        # two dummy nodes to start each chain
+        less_dummy = Node(0)
+        greater_dummy = Node(0)
+        less = less_dummy        # pointer for less-than chain
+        greater = greater_dummy  # pointer for greater-or-equal chain
         temporary_node = self.head
-        my_linked_list_2 = LinkedList()
         while temporary_node is not None:
             if temporary_node.value < x:
-                my_linked_list_2.append(temporary_node.value)
+                less.next = temporary_node
+                less = less.next
+            else:
+                greater.next = temporary_node
+                greater = greater.next
             temporary_node = temporary_node.next
-        
+        # connect the two chains
+        greater.next = None          # end the greater chain
+        less.next = greater_dummy.next  # attach greater chain after less chain
+        self.head = less_dummy.next  # skip past the dummy head
+        temporary_node = self.head
+        while temporary_node.next is not None:
+            temporary_node = temporary_node.next
+        self.tail = temporary_node    # update the tail to the last node of the new list
 
+    def reverse_between(self, left, right):
+        if left == right:
+            return print("No need to reverse as left and right are the same.")
+        dummy = Node(0)
+        dummy.next = self.head
+        before_left = dummy
+        for _ in range(left):
+            before_left = before_left.next
+        temporary_node = before_left.next
+        ll2 = LinkedList(temporary_node.value)
+        for _ in range(left, right):
+            temporary_node = temporary_node.next
+            ll2.append(temporary_node.value)
+        after_right = temporary_node.next
+        ll2.reverse()
+        before_left.next = ll2.head
+        ll2.tail.next = after_right
+        self.head = dummy.next
+        return self
+
+    def swap_pairs(self):
+        if self.length < 2:
+            return "No pairs to swap."
+        dummy = Node(0)
+        dummy.next = self.head
+        prev_node = dummy
+        current_node = self.head
+
+        while current_node and current_node.next:
+            first_node = current_node
+            second_node = current_node.next
+
+            # Swapping
+            prev_node.next = second_node
+            first_node.next = second_node.next
+            second_node.next = first_node
+
+            # Re-positioning prev_node and current_node for next swap
+            prev_node = first_node
+            current_node = first_node.next
+
+        self.head = dummy.next
+        return self
+
+    # def swap_pairs(self):
+    #     if self.length < 2:
+    #         return "No pairs to swap."
+    #     result = LinkedList(self.head.value)
+    #     temporary_node = self.head.next
+    #     while temporary_node is not None:
+    #         result.append(temporary_node.value)
+    #         temporary_node = temporary_node.next
+    #     temporary_node = result.head
+    #     while temporary_node and temporary_node.next:
+    #         first_node = temporary_node
+    #         second_node = temporary_node.next
+    #         # swap values
+    #         first_node.value, second_node.value = second_node.value, first_node.value
+    #         temporary_node = second_node.next
+    #     self.head = result.head
+    #     self.tail = result.tail
+    #     return self
+
+        
 value = input("Enter the head for the new linked list: ")
 my_linked_list = LinkedList(int(value))
 
 
 while True:
-    action = input("\nWhat would you like to do? (print/append/pop/pop_first/prepend/get/set/insert/remove/reverse/findmiddle/hasloop/findkthfromend/binarytodecimal/quit): ").lower()
+    action = input("\nWhat would you like to do? (print/append/pop/pop_first/prepend/get/set/insert/remove/reverse/findmiddle/hasloop/findkthfromend/binarytodecimal/partition/reverse_between/swap_pairs/quit): ").lower()
 
     if action == "quit":
         print("Exiting program.")
@@ -322,5 +401,31 @@ while True:
         decimal_value = my_linked_list.binary_to_decimal()
         print(f"Binary to Decimal: {decimal_value}")
 
+    elif action == "partition":
+        try:
+            x = int(input("Enter the value of x to partition the list: "))
+            my_linked_list.partition(x)
+            print(f"Partitioned the linked list around {x}.")
+            my_linked_list.print_list()
+        except ValueError:
+            print("Please enter a valid integer for x.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
+    elif action == "reversebetween":
+        try:
+            left = int(input("Enter left index: "))
+            right = int(input("Enter right index: "))
+            my_linked_list.reverse_between(left, right)
+            print("Reversed between indices.")
+            my_linked_list.print_list()
+        except ValueError:
+            print("Please enter valid integers.")
+
+    elif action == "swap_pairs":
+        my_linked_list.swap_pairs()
+        print("Swapped nodes in pairs.")
+        my_linked_list.print_list()
+
     else:
-        print("Invalid action. Please choose print, append, pop, pop_first, prepend, get, set, insert, remove, reverse, findmiddle, hasloop, findkthfromend, binarytodecimal, or quit.")
+        print("Invalid action. Please choose print, append, pop, pop_first, prepend, get, set, insert, remove, reverse, findmiddle, hasloop, findkthfromend, binarytodecimal, partition, reverse_between, swap_pairs, or quit.")
