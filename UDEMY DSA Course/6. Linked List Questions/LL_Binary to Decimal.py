@@ -177,12 +177,21 @@ class LinkedList:
                     runner_node = runner_node.next
             curent_node = curent_node.next
 
+    def binary_to_decimal(self):
+        temporary_node = self.head
+        decimal_value = 0
+        while temporary_node is not None:
+            decimal_value = decimal_value * 2 + temporary_node.value
+            temporary_node = temporary_node.next
+        return decimal_value
+    
+
 value = input("Enter the head for the new linked list: ")
-my_linked_list = LinkedList(value)
+my_linked_list = LinkedList(int(value))
 
 
 while True:
-    action = input("\nWhat would you like to do? (print/append/pop/pop_first/prepend/get/set/insert/remove/reverse/findmiddle/hasloop/findkthfromend/quit): ").lower()
+    action = input("\nWhat would you like to do? (print/append/pop/pop_first/prepend/get/set/insert/remove/reverse/findmiddle/hasloop/findkthfromend/binarytodecimal/quit): ").lower()
 
     if action == "quit":
         print("Exiting program.")
@@ -192,12 +201,12 @@ while True:
         my_linked_list.print_list()
 
     elif action == "append":
-        new_value = input("Enter the value to append: ")
+        new_value = int(input("Enter the value to append: "))
         my_linked_list.append(new_value)
         print(f"Appended | Node: {my_linked_list.tail} | Value: {my_linked_list.tail.value}")
 
     elif action == "prepend":
-        new_value = input("Enter the value to prepend: ")
+        new_value = int(input("Enter the value to prepend: "))
         my_linked_list.prepend(new_value)
         print(f"Prepended | Node: {my_linked_list.head} | Value: {my_linked_list.head.value}")
 
@@ -229,7 +238,7 @@ while True:
     elif action == "set":
         try:
             index = int(input("Enter the index to set: "))
-            new_value = input("Enter the new value: ")
+            new_value = int(input("Enter the new value: "))
             node = my_linked_list.set(index, new_value)
             if node:
                 print(f"Set | Node: {node} | Value: {node.value}")
@@ -243,7 +252,7 @@ while True:
     elif action == "insert":
         try:
             index = int(input("Enter the index to insert at: "))
-            new_value = input("Enter the new value to insert: ")
+            new_value = int(input("Enter the new value to insert: "))
             node = my_linked_list.insert(index, new_value)
             if node:
                 print(f"Inserted | Node: {my_linked_list.get(index)} | Value: {my_linked_list.get(index).value}")
@@ -298,5 +307,10 @@ while True:
             print("Please enter a valid integer for k.")
         except Exception as e:
             print(f"An error occurred: {e}")
+
+    elif action == "binarytodecimal":
+        decimal_value = my_linked_list.binary_to_decimal()
+        print(f"Binary to Decimal: {decimal_value}")
+
     else:
-        print("Invalid action. Please choose print, append, pop, pop_first, prepend, get, set, insert, remove, reverse, findmiddle, hasloop, findkthfromend, or quit.")
+        print("Invalid action. Please choose print, append, pop, pop_first, prepend, get, set, insert, remove, reverse, findmiddle, hasloop, findkthfromend, binarytodecimal, or quit.")

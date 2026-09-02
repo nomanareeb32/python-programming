@@ -186,22 +186,44 @@ class LinkedList:
         return decimal_value
 
     def partition(self, x):
-        if self.length == 0:
-            return "The linked list is empty. No partitioning can be done."
+        if self.head is None:
+            return
+
+        # two dummy nodes to start each chain
+        less_dummy = Node(0)
+        greater_dummy = Node(0)
+
+        less = less_dummy        # pointer for less-than chain
+        greater = greater_dummy  # pointer for greater-or-equal chain
+
         temporary_node = self.head
-        my_linked_list_2 = LinkedList()
+
         while temporary_node is not None:
             if temporary_node.value < x:
-                my_linked_list_2.append(temporary_node.value)
+                less.next = temporary_node
+                less = less.next
+            else:
+                greater.next = temporary_node
+                greater = greater.next
             temporary_node = temporary_node.next
-        
+
+        # connect the two chains
+        greater.next = None          # end the greater chain
+        less.next = greater_dummy.next  # attach greater chain after less chain
+
+        self.head = less_dummy.next  # skip past the dummy head
+
+        temporary_node = self.head
+        while temporary_node.next is not None:
+            temporary_node = temporary_node.next
+        self.tail = temporary_node    # update the tail to the last node of the new list
 
 value = input("Enter the head for the new linked list: ")
 my_linked_list = LinkedList(int(value))
 
 
 while True:
-    action = input("\nWhat would you like to do? (print/append/pop/pop_first/prepend/get/set/insert/remove/reverse/findmiddle/hasloop/findkthfromend/binarytodecimal/quit): ").lower()
+    action = input("\nWhat would you like to do? (print/append/pop/pop_first/prepend/get/set/insert/remove/reverse/findmiddle/hasloop/findkthfromend/binarytodecimal/partition/quit): ").lower()
 
     if action == "quit":
         print("Exiting program.")
@@ -322,5 +344,17 @@ while True:
         decimal_value = my_linked_list.binary_to_decimal()
         print(f"Binary to Decimal: {decimal_value}")
 
+    elif action == "partition":
+        try:
+            x = int(input("Enter the value of x to partition the list: "))
+            my_linked_list.partition(x)
+            print(f"Partitioned the linked list around {x}.")
+            my_linked_list.print_list()
+        except ValueError:
+            print("Please enter a valid integer for x.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
+
     else:
-        print("Invalid action. Please choose print, append, pop, pop_first, prepend, get, set, insert, remove, reverse, findmiddle, hasloop, findkthfromend, binarytodecimal, or quit.")
+        print("Invalid action. Please choose print, append, pop, pop_first, prepend, get, set, insert, remove, reverse, findmiddle, hasloop, findkthfromend, binarytodecimal, partition, or quit.")
