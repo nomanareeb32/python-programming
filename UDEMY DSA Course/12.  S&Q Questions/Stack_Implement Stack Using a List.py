@@ -17,6 +17,7 @@ class Stack:
     def is_empty(self):
         return len(self.stack_list) == 0
 
+    @staticmethod
     def reverse_string(string):
         stack = Stack()
         reversed_string = ""
@@ -26,6 +27,17 @@ class Stack:
             reversed_string += stack.pop()
         return reversed_string
 
+
+    def is_balanced_parentheses(parentheses_string):
+        stack = Stack()
+        for i_p in parentheses_string:
+            if i_p == "()":
+                stack.push(i_p)
+            elif i_p == ")":
+                if stack.is_empty() or stack.pop() != "(":
+                    return False
+        return stack.is_empty()
+
 my_string = 'hello'
 
-print (reverse_string(my_string))
+print (Stack.reverse_string(my_string))
