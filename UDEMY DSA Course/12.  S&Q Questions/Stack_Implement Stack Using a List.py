@@ -14,6 +14,12 @@ class Stack:
             return None
         return self.stack_list.pop()
 
+    def peek(self):
+        if self.is_empty():
+            return None
+        else:
+            return self.stack_list[-1]
+
     def is_empty(self):
         return len(self.stack_list) == 0
 
@@ -27,7 +33,6 @@ class Stack:
             reversed_string += stack.pop()
         return reversed_string
 
-
     def is_balanced_parentheses(parentheses_string):
         stack = Stack()
         for i_p in parentheses_string:
@@ -37,6 +42,17 @@ class Stack:
                 if stack.is_empty() or stack.pop() != "(":
                     return False
         return stack.is_empty()
+
+    def sorted_stack(stack):
+        sorted_stack = Stack()
+        while not stack.is_empty():
+            temporary = stack.pop()
+            while not sorted_stack.is_empty() and sorted_stack.peek() > temporary:
+                stack.push(sorted_stack.pop())
+            sorted_stack.push(temporary)
+        while not sorted_stack.is_empty():
+            stack.push(sorted_stack.pop())
+        
 
 my_string = 'hello'
 
